@@ -3,6 +3,8 @@
 
 [versions]
 junit-jupiter = "5.12.1"
+xerial = "3.51.1.0"
 
 [libraries]
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+xerial = { module = "org.xerial:sqlite-jdbc", version.ref = "xerial" }

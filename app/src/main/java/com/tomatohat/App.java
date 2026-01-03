@@ -3,12 +3,50 @@
  */
 package com.tomatohat;
 
+import java.sql.*;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
+        //connection url.
+        String connectionURL = "jdbc:sqlite:sprout.db";
+
+        // try connection.
+        try(Connection conn = DriverManager.getConnection(connectionURL);
+            Statement stmt = conn.createStatement()) {
+
+            stmt.execute("""
+                    CREATE TABLE IF NOT EXISTS project (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    description TEXT,
+                    dateCreated TEXT DEFAULT CURRENT_TIMESTAMP,
+                    dateModified TEXT DEFAULT CURRENT_TIMESTAMP
+                    )
+                    """);
+
+            stmt.execute("INSERT INTO project(name, description) VALUES('My first project', 'This is a description of a test project.')");
+
+            ResultSet rs = stmt.executeQuery("SELECT * FROM project");
+
+            while(rs.next()) {
+                System.out.println(rs.getInt("id") + " "
+                        + rs.getString("name") + " "
+                        + rs.getString("description") + " "
+                        + rs.getString("dateCreated") + " "
+                        + rs.getString("dateModified"));
+            }
+
+        } catch(SQLException e) {
+            System.out.println("Could not connect to database.");
+        }
+
+        // execute statement.
+
+        // obtain result.
+
+        // print result.
+
     }
 }

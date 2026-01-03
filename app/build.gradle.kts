@@ -21,6 +21,8 @@ dependencies {
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    implementation(libs.xerial)
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
